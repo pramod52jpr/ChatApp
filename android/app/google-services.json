@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "443421825761",
+    "firebase_url": "https://chatapp-293b1-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "chatapp-293b1",
+    "storage_bucket": "chatapp-293b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443421825761:android:7956309a304f4e850af5a0",
+        "android_client_info": {
+          "package_name": "com.pandit.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443421825761-7tbhrq53lclv0kh5rbmkjijer7c1socm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pandit.chatapp",
+            "certificate_hash": "267a5e45fcd17393b2d78a4155b141e6c2bb0182"
+          }
+        },
+        {
+          "client_id": "443421825761-5eg96qak34h8mekibqugpjkquofq3us6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5LNOQ6dzipEACEfXAx_oOKTN8U8CHC9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443421825761-5eg96qak34h8mekibqugpjkquofq3us6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
