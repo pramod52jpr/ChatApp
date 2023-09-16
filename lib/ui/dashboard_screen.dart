@@ -38,6 +38,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _auth.currentUser!
                       .updateDisplayName(nameController.text.toString())
                       .then((value) {
+                    ref.onValue.listen((event) {
+                      for (final child in event.snapshot.children.where(
+                          (element) =>
+                              element.child("email").value ==
+                              _auth.currentUser!.email.toString())) {
+                        ref
+                            .child(child.child("id").value.toString())
+                            .update({'name': nameController.text.toString()});
+                      }
+                    });
                     Navigator.of(context).pop();
                     MyServices().toastmsg("Profile Updated", true);
                   }).onError((error, stackTrace) {
@@ -46,6 +56,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   });
                 },
                 child: Text("Save")),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Cancel"))
+          ],
+        );
+      },
+    );
+  }
+
+  void deletemsg(String id) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Delete"),
+          content: Text("Are You Sure? You want to delete msg"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  ref.child(id).remove().then((value) {
+                    Navigator.of(context).pop();
+                    MyServices().toastmsg("Message Deleted", true);
+                  }).onError((error, stackTrace) {
+                    Navigator.of(context).pop();
+                    MyServices().toastmsg(error.toString(), false);
+                  });
+                },
+                child: Text("Confirm")),
             TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -148,6 +188,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: FirebaseAnimatedList(
             query: ref,
             itemBuilder: (context, snapshot, animation, index) {
+              final id = snapshot.child("id").value.toString();
               final name = snapshot.child("name").value.toString();
               final email = snapshot.child("email").value.toString();
               final message = snapshot.child("message").value.toString();
@@ -155,6 +196,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MessegeBox(
+                    onLongPress: () {
+                      _auth.currentUser!.email == email
+                          ? Future.delayed(
+                              Duration(seconds: 0),
+                              () {
+                                deletemsg(id);
+                              },
+                            )
+                          : null;
+                    },
                     name: _auth.currentUser!.email == email
                         ? "You"
                         : name == ""
